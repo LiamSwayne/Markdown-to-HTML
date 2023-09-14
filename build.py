@@ -18,9 +18,12 @@ cssStyling = """
     max-width: 500px;
     margin: 15px auto;
     text-align: left;
+    line-height: 1.6;
   }
   .title {
     font-weight: bold;
+    font-size: 50px;
+    line-height: 0.95;
   }
   .image {
     max-width: 100%;
@@ -40,6 +43,8 @@ htmlOutput += "<body>"
 
 # Initialize variables
 insideBlock = False
+insideImageBlock = False
+captionText = ""
 
 # Process the markdown content
 for line in markdownContent:
@@ -54,15 +59,15 @@ for line in markdownContent:
         image_url = line[line.find("(") + 1:line.find(")")]
         htmlOutput += "<div class='markdown'>"
         htmlOutput += "<img class='image' src='" + image_url + "' />"
-        htmlOutput += "<div class='caption'>[caption] This is a dog.</div>"
-        htmlOutput += "</div>"
+        insideImageBlock = True
         insideBlock = False
     elif line.startswith("[caption] "):  # Caption
-        if insideBlock:
-            htmlOutput += "<div class='caption'>"
-            htmlOutput += line[len("[caption] "):]
-            htmlOutput += "</div>"
+        if insideImageBlock:
+            captionText = line[len("[caption] "):]
         else:
+            if insideBlock:
+                htmlOutput += "</div>"
+                insideBlock = False
             htmlOutput += "<div class='markdown caption'>"
             htmlOutput += line[len("[caption] "):]
             htmlOutput += "</div>"
@@ -77,6 +82,10 @@ for line in markdownContent:
         if insideBlock:
             htmlOutput += "</div>"
             insideBlock = False
+        elif insideImageBlock:
+            htmlOutput += "<div class='caption'>" + captionText + "</div>"
+            insideImageBlock = False
+            captionText = ""
 
 # Close the last text block if necessary
 if insideBlock:
