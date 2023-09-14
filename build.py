@@ -50,6 +50,7 @@ for line in markdown_content:
         html_output += "<div class='markdown-body markdown-title'>"
         html_output += line[2:]  # Remove the "#" symbol
         html_output += "</div>"
+        in_block = False
     elif line.startswith("![]("):  # Image
         # Extract the image URL
         image_url = line[line.find("(") + 1:line.find(")")]
@@ -57,6 +58,7 @@ for line in markdown_content:
         html_output += "<img class='markdown-image' src='" + image_url + "' />"
         html_output += "<div class='markdown-caption'>[caption] This is a dog.</div>"
         html_output += "</div>"
+        in_block = False
     elif line.startswith("[caption] "):  # Caption
         if in_block:
             html_output += "<div class='markdown-caption'>"
@@ -70,6 +72,8 @@ for line in markdown_content:
         if not in_block:
             html_output += "<div class='markdown-body'>"
             in_block = True
+        if in_block:
+            html_output += " "  # Add a space between lines in the same block
         html_output += line
     else:  # Empty line
         if in_block:
