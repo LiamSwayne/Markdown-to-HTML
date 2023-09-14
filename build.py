@@ -149,7 +149,7 @@ def markdownToHTML(inputFilePath, outputFolderPath):
     with open(output_file_path, "w") as outputFile:
         outputFile.write(htmlOutput)
 
-# build every markdown file to html
+# Build every markdown file to html
 for root, _, files in os.walk(sourceFolder):
     for fileName in files:
         if fileName.endswith(".md"):
