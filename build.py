@@ -11,7 +11,7 @@ cssStyling = """
   body {
     background: black;
     color: #ffffff;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica Neue', Helvetica;
     text-align: center;
   }
   .markdown {
@@ -23,7 +23,7 @@ cssStyling = """
   }
   .title {
     font-weight: 700;
-    font-size: 50px;
+    font-size: 40px;
     line-height: 0.95;
   }
   .image {
