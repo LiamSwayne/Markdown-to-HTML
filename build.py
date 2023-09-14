@@ -1,9 +1,14 @@
+# SETTINGS
+sourceFolder = "source" # Process all markdown files in the source folder and subfolders
+outputFolder = "docs" # Output html files with same directory structure
+
+# imports
 import os
 
 # Function to process a markdown file and generate HTML
-def process_markdown_file(input_file_path, output_folder_path):
+def markdownToHTML(inputFilePath, outputFolderPath):
     # Read the markdown content
-    with open(input_file_path, "r") as inputFile:
+    with open(inputFilePath, "r") as inputFile:
         markdownContent = inputFile.readlines()
 
     # Remove leading and trailing empty lines
@@ -125,7 +130,7 @@ def process_markdown_file(input_file_path, output_folder_path):
             updatedMarkdownContent.append(line)
 
     # Update the source with corrected markdown syntax
-    with open(input_file_path, "w") as inputFile:
+    with open(inputFilePath, "w") as inputFile:
         inputFile.write("".join(updatedMarkdownContent))
 
     # Close the last text block if necessary
@@ -137,22 +142,19 @@ def process_markdown_file(input_file_path, output_folder_path):
     htmlOutput += "</html>"
 
     # Determine the output HTML file path
-    output_file_name = os.path.basename(input_file_path).replace(".md", ".html")
-    output_file_path = os.path.join(output_folder_path, output_file_name)
+    output_file_name = os.path.basename(inputFilePath).replace(".md", ".html")
+    output_file_path = os.path.join(outputFolderPath, output_file_name)
 
     # Write the HTML output to a file
     with open(output_file_path, "w") as outputFile:
         outputFile.write(htmlOutput)
 
-# Process all markdown files in the source folder and subfolders
-source_folder = "source"
-docs_folder = "docs"
-
-for root, _, files in os.walk(source_folder):
-    for file_name in files:
-        if file_name.endswith(".md"):
-            file_path = os.path.join(root, file_name)
-            relative_path = os.path.relpath(file_path, source_folder)
-            output_folder = os.path.join(docs_folder, os.path.dirname(relative_path))
-            os.makedirs(output_folder, exist_ok=True)
-            process_markdown_file(file_path, output_folder)
+# build every markdown file to html
+for root, _, files in os.walk(sourceFolder):
+    for fileName in files:
+        if fileName.endswith(".md"):
+            filePath = os.path.join(root, fileName)
+            relativePath = os.path.relpath(filePath, sourceFolder)
+            outputFolder = os.path.join(outputFolder, os.path.dirname(relativePath))
+            os.makedirs(outputFolder, exist_ok=True)
+            markdownToHTML(filePath, outputFolder)
