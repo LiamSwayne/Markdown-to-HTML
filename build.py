@@ -2,6 +2,14 @@
 with open("source.md", "r") as inputFile:
     markdownContent = inputFile.readlines()
 
+# Remove leading and trailing empty lines
+while markdownContent[0].strip() == "":
+    markdownContent = markdownContent[1:]
+while markdownContent[-1].strip() == "":
+    markdownContent = markdownContent[:-1]
+if markdownContent[-1][-1] == "\n":
+    markdownContent[-1] = markdownContent[-1][:-1]
+
 # Initialize variables
 htmlOutput = ""
 
