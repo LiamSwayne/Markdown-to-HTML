@@ -19,7 +19,7 @@ cssStyling = """
     margin: 15px auto;
     text-align: left;
     line-height: 1.6;
-    font-size: 17px;
+    font-size: 16px;
   }
   .title {
     font-weight: 700;
@@ -52,8 +52,8 @@ insideImageBlock = False
 captionText = ""
 
 # Process the markdown content
-for line in markdownContent:
-    line = line.strip()
+for i in range(len(markdownContent)):
+    line = markdownContent[i].strip()
     if line.startswith("# "):  # Title
         htmlOutput += "<div class='markdown title'>"
         htmlOutput += line[2:]  # Remove the "#" symbol
@@ -66,16 +66,23 @@ for line in markdownContent:
         htmlOutput += "<img class='image' src='" + image_url + "' />"
         insideImageBlock = True
         insideBlock = False
-    elif line.startswith("[caption] "):  # Caption
+    elif line.startswith("[caption]"):  # Caption
+        # Slice to caption
+        line = line[len("[caption]"):]
+        while line[0] == " ":
+            line = line[1:]
+
         if insideImageBlock:
-            captionText = line[len("[caption] "):]
+            captionText = line
         else:
             if insideBlock:
                 htmlOutput += "</div>"
                 insideBlock = False
             htmlOutput += "<div class='markdown caption'>"
-            htmlOutput += line[len("[caption] "):]
+            htmlOutput += line
             htmlOutput += "</div>"
+        
+        markdownContent[i] = "[caption] " + line + "\n"
     elif line:  # Text block
         if not insideBlock:
             htmlOutput += "<div class='markdown'>"
@@ -91,6 +98,10 @@ for line in markdownContent:
             htmlOutput += "<div class='caption'>" + captionText + "</div>"
             insideImageBlock = False
             captionText = ""
+
+# Update the source with corrected markdown syntax
+with open("source.md", "w") as inputFile:
+    inputFile.write("".join(markdownContent))
 
 # Close the last text block if necessary
 if insideBlock:

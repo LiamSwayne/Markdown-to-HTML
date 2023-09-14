@@ -12,6 +12,9 @@ This is a new paragraph.
 ![](https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*)
 [caption] This is a low-res image. This caption will wrap around. This caption will wrap around. This caption will wrap around.
 
+Image with no caption.
+![](https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*)
+
 This is another text block.
 
 This is another text block.
