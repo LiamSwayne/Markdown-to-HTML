@@ -1,6 +1,38 @@
 # SETTINGS
 sourceFolder = "source" # Process all markdown files in the source folder and subfolders
 outputFolder = "docs" # Output html files with same directory structure
+# Define the CSS style
+cssStyling = """
+<style>
+    body {
+    background: black;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Helvetica;
+    }
+    .markdown {
+    max-width: 500px;
+    margin: 15px auto;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 16px;
+    }
+    .title {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 0.95;
+    }
+    .image {
+    width: 500px;
+    }
+    .caption {
+    margin-top: 3px;
+    color: #757575;
+    line-height: 1.1;
+    font-weight: 500;
+    font-size: 14px;
+    }
+</style>
+"""
 
 # imports
 import os
@@ -21,39 +53,6 @@ def markdownToHTML(inputFilePath, outputFolderPath):
 
     # Initialize variables
     htmlOutput = ""
-
-    # Define the CSS style
-    cssStyling = """
-    <style>
-      body {
-        background: black;
-        color: #ffffff;
-        font-family: 'Helvetica Neue', Helvetica;
-      }
-      .markdown {
-        max-width: 500px;
-        margin: 15px auto;
-        text-align: left;
-        line-height: 1.6;
-        font-size: 16px;
-      }
-      .title {
-        font-weight: 700;
-        font-size: 40px;
-        line-height: 0.95;
-      }
-      .image {
-        width: 500px;
-      }
-      .caption {
-        margin-top: 3px;
-        color: #757575;
-        line-height: 1.1;
-        font-weight: 500;
-        font-size: 14px;
-      }
-    </style>
-    """
 
     # Add the HTML structure and style to the output
     htmlOutput += "<html>"
