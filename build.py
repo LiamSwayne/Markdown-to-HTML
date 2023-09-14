@@ -5,37 +5,38 @@ outputFolder = "docs" # Output html files with same directory structure
 cssStyling = """
 <style>
     body {
-    background: black;
-    color: #ffffff;
-    font-family: 'Helvetica Neue', Helvetica;
+        background: black;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica;
     }
     .markdown {
-    max-width: 500px;
-    margin: 15px auto;
-    text-align: left;
-    line-height: 1.6;
-    font-size: 16px;
+        max-width: 500px;
+        margin: 15px auto;
+        text-align: left;
+        line-height: 1.6;
+        font-size: 16px;
     }
     .title {
-    font-weight: 700;
-    font-size: 40px;
-    line-height: 0.95;
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 0.95;
     }
     .image {
-    width: 500px;
+        width: 500px;
     }
     .caption {
-    margin-top: 3px;
-    color: #757575;
-    line-height: 1.1;
-    font-weight: 500;
-    font-size: 14px;
+        margin-top: 3px;
+        color: #757575;
+        line-height: 1.1;
+        font-weight: 500;
+        font-size: 14px;
     }
 </style>
 """
 
 # imports
 import os
+import shutil
 
 # Function to process a markdown file and generate HTML
 def markdownToHTML(inputFilePath, outputFolderPath):
@@ -151,9 +152,15 @@ def markdownToHTML(inputFilePath, outputFolderPath):
 # Build every markdown file to html
 for root, _, files in os.walk(sourceFolder):
     for fileName in files:
+        srcFilePath = os.path.join(root, fileName)
+        relativePath = os.path.relpath(srcFilePath, sourceFolder)
+        dstFolder = os.path.join(outputFolder, os.path.dirname(relativePath))
+        os.makedirs(dstFolder, exist_ok=True)
+
         if fileName.endswith(".md"):
-            filePath = os.path.join(root, fileName)
-            relativePath = os.path.relpath(filePath, sourceFolder)
-            outputFolder = os.path.join(outputFolder, os.path.dirname(relativePath))
-            os.makedirs(outputFolder, exist_ok=True)
-            markdownToHTML(filePath, outputFolder)
+            # Process markdown files to HTML
+            markdownToHTML(srcFilePath, dstFolder)
+        else:
+            # Copy non-markdown files
+            dstFilePath = os.path.join(dstFolder, fileName)
+            shutil.copy2(srcFilePath, dstFilePath)
