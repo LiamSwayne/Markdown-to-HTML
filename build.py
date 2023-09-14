@@ -12,7 +12,6 @@ cssStyling = """
     background: black;
     color: #ffffff;
     font-family: 'Helvetica Neue', Helvetica;
-    text-align: center;
   }
   .markdown {
     max-width: 500px;
@@ -27,7 +26,7 @@ cssStyling = """
     line-height: 0.95;
   }
   .image {
-    max-width: 100%;
+    width: 500px;
   }
   .caption {
     margin-top: 3px;
