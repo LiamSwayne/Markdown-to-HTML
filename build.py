@@ -108,9 +108,21 @@ for i in range(len(markdownContent)):
             insideImageBlock = False
             captionText = ""
 
+# Remove writespace longer than 2 lines in markdown
+updatedMarkdownContent = []
+consecutiveNewlines = 0
+for line in markdownContent:
+    if line.strip() == "":
+        consecutiveNewlines += 1
+        if consecutiveNewlines <= 2:
+            updatedMarkdownContent.append(line)
+    else:
+        consecutiveNewlines = 0
+        updatedMarkdownContent.append(line)
+
 # Update the source with corrected markdown syntax
 with open("source.md", "w") as inputFile:
-    inputFile.write("".join(markdownContent))
+    inputFile.write("".join(updatedMarkdownContent))
 
 # Close the last text block if necessary
 if insideBlock:
