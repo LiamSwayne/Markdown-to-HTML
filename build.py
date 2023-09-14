@@ -41,6 +41,8 @@ cssStyling = """
 # Add the HTML structure and style to the output
 htmlOutput += "<html>"
 htmlOutput += "<head>"
+htmlOutput += "<meta charset='UTF-8'>"
+htmlOutput += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
 htmlOutput += cssStyling
 htmlOutput += "</head>"
 htmlOutput += "<body>"
