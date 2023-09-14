@@ -12,17 +12,17 @@ css_style = """
     background: black;
     color: white;
   }
-  div {
+  .block {
     max-width: 500px;
     margin-bottom: 20px;
   }
-  div.title {
+  .title {
     font-weight: bold;
   }
-  img {
+  .image {
     max-width: 500px;
   }
-  div.caption {
+  .caption {
     color: grey;
   }
 </style>
@@ -42,14 +42,14 @@ in_block = False
 for line in markdown_content:
     line = line.strip()
     if line.startswith("# "):  # Title
-        html_output += "<div class='title'>"
+        html_output += "<div class='block title'>"
         html_output += line[2:]  # Remove the "#" symbol
         html_output += "</div>"
     elif line.startswith("![]("):  # Image
         # Extract the image URL
         image_url = line[line.find("(") + 1:line.find(")")]
-        html_output += "<div>"
-        html_output += "<img src='" + image_url + "' />"
+        html_output += "<div class='block'>"
+        html_output += "<img class='image' src='" + image_url + "' />"
         html_output += "<div class='caption'>[caption] This is a dog.</div>"
         html_output += "</div>"
     elif line.startswith("[caption] "):  # Caption
@@ -58,14 +58,14 @@ for line in markdown_content:
         html_output += "</div>"
     elif line:  # Text block
         if not in_block:
-            html_output += "<div>"
+            html_output += "<div class='block'>"
             in_block = True
         html_output += line
     else:  # Empty line
         if in_block:
             html_output += "</div>"
             in_block = False
-        html_output += "<div style='height:20px;'></div>"
+        html_output += "<div class='block'></div>"
 
 # Close the last text block if necessary
 if in_block:
