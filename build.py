@@ -10,7 +10,7 @@ cssStyling = """
 <style>
   body {
     background: black;
-    color: white;
+    color: #ffffff;
     font-family: 'Helvetica Neue', sans-serif;
     text-align: center;
   }
@@ -22,7 +22,7 @@ cssStyling = """
     font-size: 17px;
   }
   .title {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 50px;
     line-height: 0.95;
   }
@@ -30,7 +30,11 @@ cssStyling = """
     max-width: 100%;
   }
   .caption {
-    color: grey;
+    margin-top: 3px;
+    color: #757575;
+    line-height: 1.1;
+    font-weight: 500;
+    font-size: 14px;
   }
 </style>
 """
