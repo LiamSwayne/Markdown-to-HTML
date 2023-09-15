@@ -117,7 +117,7 @@ def markdownToHTML(inputFilePath, outputFolderPath):
                 insideImageBlock = False
                 captionText = ""
 
-    # Remove writespace longer than 2 lines in markdown
+    # Remove whitespace longer than 2 lines in markdown
     updatedMarkdownContent = []
     consecutiveNewlines = 0
     for line in markdownContent:
