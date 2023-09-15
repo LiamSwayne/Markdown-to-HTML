@@ -77,16 +77,16 @@ def markdownToHTML(inputFilePath, outputFolderPath):
             htmlOutput += line[2:]  # Remove the "#" symbol
             htmlOutput += "</div>"
             insideBlock = False
-        elif line.startswith("[image]("):  # Image
+        elif line.startswith("![]("):  # Image
             # Extract the image URL
             image_url = line[line.find("(") + 1:line.find(")")]
             htmlOutput += "<div class='markdown'>"
             htmlOutput += "<img class='image' src='" + image_url + "' />"
             insideImageBlock = True
             insideBlock = False
-        elif line.startswith("######"):  # Caption
+        elif line.startswith("[caption]"):  # Caption
             # Slice to caption
-            line = line[len("######"):]
+            line = line[len("[caption]"):]
             while line and line[0] == " ":
                 line = line[1:]
 
@@ -100,7 +100,7 @@ def markdownToHTML(inputFilePath, outputFolderPath):
                 htmlOutput += line
                 htmlOutput += "</div>"
 
-            markdownContent[i] = "###### " + line + "\n"
+            markdownContent[i] = "[caption] " + line + "\n"
         elif line:  # Text block
             if not insideBlock:
                 htmlOutput += "<div class='markdown'>"
@@ -117,7 +117,7 @@ def markdownToHTML(inputFilePath, outputFolderPath):
                 insideImageBlock = False
                 captionText = ""
 
-    # Remove whitespace longer than 2 lines in markdown
+    # Remove writespace longer than 2 lines in markdown
     updatedMarkdownContent = []
     consecutiveNewlines = 0
     for line in markdownContent:
