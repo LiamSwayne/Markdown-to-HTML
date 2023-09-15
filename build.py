@@ -8,6 +8,7 @@ cssStyling = """
         background: black;
         color: #ffffff;
         font-family: 'Roboto';
+        margin: auto 30px;
     }
     .markdown {
         max-width: 600px;
@@ -32,6 +33,24 @@ cssStyling = """
         font-family: 'Helvetica Neue', Helvetica;
         font-weight: 500;
         font-size: 14px;
+    }
+
+    @media screen and (max-width: 660px) {
+        .markdown {
+            font-size: calc(100vw / 41.25);
+        }
+
+        .title {
+            font-size: calc(100vw / 16.5);
+        }
+
+        .caption {
+            font-size: calc(100vw / 47.142);
+        }
+
+        .image {
+            width: calc(100%);
+        }
     }
 </style>
 """
