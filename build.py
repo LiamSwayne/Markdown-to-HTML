@@ -117,7 +117,7 @@ def markdownToHTML(inputFilePath, outputFolderPath):
                 insideImageBlock = False
                 captionText = ""
 
-    # Remove writespace longer than 2 lines in markdown
+    # Remove whitespace longer than 2 lines in markdown
     updatedMarkdownContent = []
     consecutiveNewlines = 0
     for line in markdownContent:
@@ -128,6 +128,13 @@ def markdownToHTML(inputFilePath, outputFolderPath):
         else:
             consecutiveNewlines = 0
             updatedMarkdownContent.append(line)
+
+    # Remove whitespace between image and caption
+    for i in range(len(updatedMarkdownContent)-1):
+        line = updatedMarkdownContent[i]
+        nextLine = updatedMarkdownContent[i+1]
+        if line == "\n" and nextLine.startswith("######"):
+            updatedMarkdownContent[i] = ""
 
     # Update the source with corrected markdown syntax
     with open(inputFilePath, "w") as inputFile:
