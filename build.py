@@ -7,10 +7,10 @@ cssStyling = """
     body {
         background: black;
         color: #ffffff;
-        font-family: 'Helvetica Neue', Helvetica;
+        font-family: 'Roboto';
     }
     .markdown {
-        max-width: 500px;
+        max-width: 600px;
         margin: 15px auto;
         text-align: left;
         line-height: 1.6;
@@ -20,14 +20,16 @@ cssStyling = """
         font-weight: 700;
         font-size: 40px;
         line-height: 0.95;
+        font-family: 'Helvetica Neue', Helvetica;
     }
     .image {
-        width: 500px;
+        width: 600px;
     }
     .caption {
         margin-top: 3px;
         color: #757575;
         line-height: 1.1;
+        font-family: 'Helvetica Neue', Helvetica;
         font-weight: 500;
         font-size: 14px;
     }
@@ -60,6 +62,9 @@ def markdownToHTML(inputFilePath, outputFolderPath):
     htmlOutput += "<head>"
     htmlOutput += "<meta charset='UTF-8'>"
     htmlOutput += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+    htmlOutput += """<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">"""
     htmlOutput += cssStyling
     htmlOutput += "</head>"
     htmlOutput += "<body>"
